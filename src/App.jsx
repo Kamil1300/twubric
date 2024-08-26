@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Button from './components/Button'
+import BorderBeam from './components/BorderBeam'
 
 export default function App() {
-  const [data, setData] = useState([])
   const [sort,setSort] = useState([])
 
   useEffect(() => {
-    // fetch("https://gist.githubusercontent.com/pandemonia/21703a6a303e0487a73b2610c8db41ab/raw/82e3ef99cde5b6e313922a5ccce7f38e17f790ac/twubric.json").then(response => response.json()).then(data => setData(data))
-    // console.log(data.uid);
     const fetchData = async () => {
       try {
         const response = await fetch('https://gist.githubusercontent.com/pandemonia/21703a6a303e0487a73b2610c8db41ab/raw/82e3ef99cde5b6e313922a5ccce7f38e17f790ac/twubric.json')
@@ -16,7 +14,6 @@ export default function App() {
         }
 
         const list = await response.json()
-        setData(list)
         setSort(list)
 
       } catch (error) {
@@ -33,9 +30,16 @@ export default function App() {
   }
 
   const sortData = (c) => {
-    const sorted = [...data].sort((a,b) => b.twubric[c] - a.twubric[c])
+    const sorted = [...sort].sort((a,b) => b.twubric[c] - a.twubric[c])
     setSort(sorted)
   }
+
+ 
+   const handleDelete = (uid) => {
+     const updatedSort = sort.filter(item => item.uid !== uid)
+     setSort(updatedSort)
+    }
+  
   return (
     <div className='m-5 font-sans'>
            <div className='m-30'>
@@ -53,8 +57,8 @@ export default function App() {
                 </div> */}
       {sort.map((i) => {
         return (
-          <div className='inline-grid gap-4 m-5'>
-          <table key={i.uid} className='w-full border-2 text-center'>
+          <div key={i.uid} className='inline-grid gap-4 m-5'>
+          <table className='w-full border-2 text-center'>
             <tr className='border-2'>
               <th>{i.username}</th>
               <th></th>
@@ -68,9 +72,12 @@ export default function App() {
             <tr>
               <td>{formatDate(i.join_date)}</td>
               <td></td>
-              <td>asdasd</td>
+              <button onClick={() => handleDelete(i.uid)} className='p-3 border-2 border-red-500 hover:bg-red-700 hover:text-white text-black focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 my-2'>Remove</button>
             </tr>
           </table>
+          <div className="relative h-[200px] w-[200px] rounded-xl">
+      <BorderBeam />
+    </div>
           </div>
         )
       })}
