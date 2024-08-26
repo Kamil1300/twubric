@@ -3,7 +3,7 @@ import Button from './components/Button'
 
 export default function App() {
   const [data, setData] = useState([])
-  // const [loading,setLoading] = useState(false)
+  const [sort,setSort] = useState([])
 
   useEffect(() => {
     // fetch("https://gist.githubusercontent.com/pandemonia/21703a6a303e0487a73b2610c8db41ab/raw/82e3ef99cde5b6e313922a5ccce7f38e17f790ac/twubric.json").then(response => response.json()).then(data => setData(data))
@@ -17,7 +17,7 @@ export default function App() {
 
         const list = await response.json()
         setData(list)
-        console.log(data.uid);
+        setSort(list)
 
       } catch (error) {
         console.log(error);
@@ -31,14 +31,19 @@ export default function App() {
     const options = {year: 'numeric', month: 'short', day: '2-digit'}
     return new Date(dateString).toLocaleDateString('en-US',options)
   }
+
+  const sortData = (c) => {
+    const sorted = [...data].sort((a,b) => b.twubric[c] - a.twubric[c])
+    setSort(sorted)
+  }
   return (
-    <div className='m-5'>
+    <div className='m-5 font-sans'>
            <div className='m-30'>
-            <h3>Sort By</h3>
-                <Button name="Twubric Score"></Button>
-                <Button name="Friends"></Button>
-                <Button name="Influence"></Button>
-                <Button name="Chirpiness"></Button>
+            <h3 className='font-bold'>Sort By</h3>
+                <Button name="Twubric Score" onClick={()=>sortData('total')}></Button>
+                <Button name="Friends" onClick={()=>sortData('friends')}></Button>
+                <Button name="Influence" onClick={()=>sortData('influence')}></Button>
+                <Button name="Chirpiness" onClick={()=>sortData('chirpiness')}></Button>
                 </div>
 
                 {/* <div>
@@ -46,7 +51,7 @@ export default function App() {
                 <p>Start Date</p>
                 {data.join_date}
                 </div> */}
-      {data.map((i) => {
+      {sort.map((i) => {
         return (
           <div className='inline-grid gap-4 m-5'>
           <table key={i.uid} className='w-full border-2 text-center'>
