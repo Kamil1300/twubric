@@ -1,12 +1,19 @@
 {
-    "compilerOptions": {
-      // ...
-      "baseUrl": ".",
-      "paths": {
-        "@/*": [
-          "./src/*"
-        ]
-      }
-      // ...
+  "compilerOptions": {
+    "target": "ESNext", 
+    "module": "ESNext",
+    "strict": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",                // This sets the base URL for module resolution
+    "paths": {                     // This sets up path aliases
+      "@/*": ["./src/*"]           // This allows you to use '@/' as an alias for './src/'
     }
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

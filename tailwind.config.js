@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    './pages/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './app/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   prefix: "",
   theme: {
@@ -17,7 +17,17 @@ module.exports = {
       },
     },
     extend: {
+      animation: {
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       keyframes: {
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -27,12 +37,7 @@ module.exports = {
           to: { height: "0" },
         },
       },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
 }
-
