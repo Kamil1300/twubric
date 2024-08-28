@@ -101,10 +101,10 @@ export default function App() {
         </div>
       </div>
 
+<div className='flex gap-4 m-10 flex-wrap justify-center items-center'>
       {sort.map((i) => {
         return (
-          <div key={i.uid} className='inline-grid gap-4 m-10'>
-            <div className="relative">
+            <div key={i.uid} className="relative">
               <table className='w-full border-2 text-center'>
                 <tbody>
                   <tr className='border-2'>
@@ -126,9 +126,9 @@ export default function App() {
               </table>
               <BorderBeam />
             </div>
-          </div>
         );
       })}
+      </div>
     </div>
   );
 }
